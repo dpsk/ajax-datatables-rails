@@ -42,8 +42,8 @@ module AjaxDatatablesRails
     def as_json(options = {})
       {
         :draw => params[:draw].to_i,
-        :recordsTotal =>  get_raw_records.count(:all).length,
-        :recordsFiltered => filter_records(get_raw_records).count(:all).length,
+        :recordsTotal =>  get_raw_records.count(:all).respond_to?(:length) ? get_raw_records.count(:all).length : get_raw_records.count(:all),
+        :recordsFiltered => filter_records(get_raw_records).count(:all).respond_to?(:length) ? filter_records(get_raw_records).count(:all).length : filter_records(get_raw_records).count(:all),
         :data => data
       }
     end
